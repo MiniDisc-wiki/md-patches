@@ -1,4 +1,4 @@
 # md-patches
 Collection of firmware patches for minidisc devices
 
-Contains patches extracted from official patch files, ported patches, and homebrew patches.
+Contains patches extracted from official patch files (+ extra comments, disassembled code, ..), ported patches, and homebrew patches.
