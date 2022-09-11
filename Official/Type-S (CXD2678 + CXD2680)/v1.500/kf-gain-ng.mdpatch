@@ -1,0 +1,28 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = TestMode337 Kf Gain調整がNGになってしまう対策
+AUTHOR = 勝田
+
+[DESCRIPTION]
+TEXT   = Countermeasure for TestMode337 Kf Gain adjustment to NG
+AUTHOR = Katsuta (Sony)
+
+[TARGET]
+SOC     = CXD2680 ; No N10
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x08a13c
+data     = 04020203
+original = 
+
+[HOOKCODE-BINARY]
+
+[HOOKCODE-ASM]
+
+[NOTE]
+
+Found in:
+F1.5C - MZ-NF410
+F1.5G - MZ-NF610
+F1.5F - MZ-N710

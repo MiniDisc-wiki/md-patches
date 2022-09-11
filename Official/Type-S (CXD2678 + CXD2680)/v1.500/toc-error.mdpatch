@@ -1,0 +1,36 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = TOC ERROR ディスクができてしまう の対策
+AUTHOR = 秋山
+
+[DESCRIPTION]
+TEXT   = Countermeasure for TOC ERROR disk
+AUTHOR = Akiyama (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x0007.204c
+data     = 04d1 00de
+original = 
+
+[HOOKCODE-BINARY]
+0130a0e30080a0e308909fe50080c9e5005fbde80ef0b0e19e0e0002
+
+[HOOKCODE-ASM]
+
+mov   r3, #1
+mov   r8, #0
+ldr   sb, PTR
+strb  r8, [sb]
+pop   {r8, sb, sl, fp, ip, lr}
+movs  pc, lr
+
+PTR:
+  .long 0x02000e9e
+
+[NOTE]
+
+Applied to all

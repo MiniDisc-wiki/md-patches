@@ -1,0 +1,26 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 再生 3分数十秒付近で音飛びの対策(他機種では53sec付近)
+AUTHOR = 佐藤
+
+[DESCRIPTION]
+TEXT   = Countermeasure for sound skipping around 3 minutes and tens of seconds of playback on N10, or around 53sec on other models
+AUTHOR = Sato (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x0005e908
+data     = 0c1c 0828
+original = 
+
+[HOOKCODE-BINARY]
+
+
+[HOOKCODE-ASM]
+
+[NOTE]
+
+Applied to all

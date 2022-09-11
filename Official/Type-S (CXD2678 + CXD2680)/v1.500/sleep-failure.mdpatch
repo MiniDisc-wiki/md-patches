@@ -1,0 +1,50 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 充電中断で稀にSLEEPしなくなる対策（改善版）
+AUTHOR = 木村
+
+[DESCRIPTION]
+TEXT   = Countermeasure for rare SLEEP failure on charge interruption (improved version)
+AUTHOR = Kimura (Sony)
+
+[TARGET]
+SOC     = CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x0001bd98
+data     = 11e0 00de
+original = 
+
+[HOOKCODE-BINARY]
+a895d4e5070059e30400001a769cd4e5130059e3010000ca0090a0e3aa95c4e5005fbde822e08ee2
+0ef0b0e1
+
+[HOOKCODE-ASM]
+
+  ldrb sb, [r4, #0x5a8]
+  cmp  sb, #7
+  bne  STOP
+  ldrb sb, [r4, #0xc76]
+  cmp  sb, #0x13
+  bgt  STOP
+  mov  sb, #0
+  strb sb, [r4, #0x5aa]
+
+STOP:
+  pop  {r8, sb, sl, fp, ip, lr}
+  add  lr, lr, #0x22
+  movs pc, lr
+
+[NOTE]
+
+Found in:
+
+F1.5E - AM-NX1 
+F1.5F - MZ-N710, MZ-NF810
+F1.5G - NZ-NF610
+
+Not in:
+
+F1.5B - N10
+F1.5C - MZ-NE410

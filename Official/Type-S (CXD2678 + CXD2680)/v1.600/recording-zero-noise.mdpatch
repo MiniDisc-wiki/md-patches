@@ -1,0 +1,21 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 録音ザー音対策
+AUTHOR = 永田
+
+[DESCRIPTION]
+TEXT   = Recording zero-noise countermeasures
+AUTHOR = Nagata (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1600
+
+[PATCH] 
+adrs     = 0x0000bb14
+data     = 4a20 0870
+original = 
+
+[HOOKCODE-BINARY]
+
+[HOOKCODE-ASM]

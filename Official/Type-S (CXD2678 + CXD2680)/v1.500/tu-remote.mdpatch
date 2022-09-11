@@ -1,0 +1,42 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = TUリモで仕向けに対するデータが書き換わる不具合の対策
+AUTHOR = 大友(パッチ作成：橋本)
+
+[DESCRIPTION]
+TEXT   = Fix bug where data is rewritten for destinations in TU Remo.
+AUTHOR = Otomo (Patch created by Hashimoto) (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = RADIO ; maybe applies to all models, not sure?
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x00021334
+data     = 00de 2931
+original = 
+
+[HOOKCODE-BINARY]
+14009fe514809fe50fe0a0e104e08ee218ff2fe108809fe518ff2fe18108000051a70500159f0500
+
+[HOOKCODE-ASM]
+  ldr   r0, ptrA
+  ldr   r8, ptrB
+  mov   lr, pc
+  add   lr, lr, #4
+  bx    r8
+
+  ldr   r8, ptrC
+  bx    r8
+ptrA:
+  .long 0x00000881
+ptrB:
+  .long 0x0005a751
+ptrC:
+  .long 0x00059f15
+
+
+[NOTE]
+Figure out how this hookcode returns from excetion, check if 0x00059f15 does
+
+Only applied to RADIO models

@@ -1,0 +1,22 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 
+AUTHOR = 
+
+[DESCRIPTION]
+TEXT   = 
+AUTHOR = xxx (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1600
+
+[PATCH] 
+adrs     = 0x
+data     = 0000 0000 
+original = 
+
+[HOOKCODE-BINARY]
+
+
+[HOOKCODE-ASM]

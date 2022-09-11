@@ -1,0 +1,25 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = ステレオ転送中断後TOC_ERRORになる対策
+AUTHOR = 白岩
+
+[DESCRIPTION]
+TEXT   = Countermeasure against TOC_ERROR after interruption of stereo transfer
+AUTHOR = Shiraiwa (Sony)
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1600
+
+[PATCH] 
+adrs     = 0x00018924
+data     = 00de 09d2 ; UDF HOOK TRIGGER
+original = 420e 09d2
+
+[HOOKCODE-BINARY]
+005fbde802e08ee20ef0b0e1
+
+[HOOKCODE-ASM]
+pop  {r8, sb, sl, fp, ip, lr}
+add  lr, lr, #2
+movs pc, lr

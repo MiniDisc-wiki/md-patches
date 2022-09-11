@@ -1,0 +1,44 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 充電台上でのSTOPキー押しで充電に遷移しない問題の修正（5201:PP0029）
+AUTHOR = 鎌田（木村）
+
+[DESCRIPTION]
+TEXT   = Fix problem with STOP key press on charging table not transitioning to charging (5201:PP0029)
+AUTHOR = Kamada (Kimura) (Sony)
+
+[TARGET]
+SOC     = CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x0004de84
+data     = 00de 00d1
+original = 
+
+[HOOKCODE-BINARY]
+10809fe50090a0e3009088e5005fbde804e08ee20ef0b0e18c030002
+
+[HOOKCODE-ASM]
+
+  ldr   r8, PTR
+  mov   sb, #0
+  str   sb, [r8]
+  pop   {r8, sb, sl, fp, ip, lr}
+  add   lr, lr, #4
+  movs  pc, lr
+PTR:
+  .long 0x0200038c
+
+[NOTE]
+
+Found in:
+
+F1.5F - MZ-NF810
+F1.5F - MZ-N710
+
+Not in:
+F1.5G - MZ-NF610 -> all patches are used
+F1.5C - MZ-NF410
+F1.4B - MZ-N10
+F1.5E - MZ-NX1

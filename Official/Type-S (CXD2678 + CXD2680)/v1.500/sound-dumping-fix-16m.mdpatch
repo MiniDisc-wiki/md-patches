@@ -1,0 +1,27 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = DL中音捨てしてしまう対策（DRAM16Mのセットに適用）
+AUTHOR = 白岩
+
+[DESCRIPTION]
+TEXT   = Countermeasure against sound dumping during DL (applied to a set of 16M DRAM) (lower data transfer interruption threshold)
+AUTHOR = Shiraiwa (Sony)
+
+[TARGET]
+SOC     = CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x00019cdc
+data     = c163 1822
+original = 
+
+[HOOKCODE-BINARY]
+
+
+[HOOKCODE-ASM]
+
+
+[NOTE]
+
+Applied to all except N10

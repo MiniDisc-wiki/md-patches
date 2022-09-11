@@ -1,0 +1,40 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = TOC_READ直後にRECすると、お化けトラックが出来る対策
+AUTHOR = 白岩
+
+[DESCRIPTION]
+TEXT   = Countermeasure against ghost tracks when RECing immediately after TOC_READ (part 2)
+AUTHOR = Shiraiwa (Sony)
+
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = ALL
+VERSION = 1500
+
+[PATCH] 
+adrs     = 0x000237ac
+data     = 00de 0ad3
+original = 
+
+[HOOKCODE-BINARY]
+005fbde84ae08ee20ef0b0e1
+
+[HOOKCODE-ASM]
+pop  {r8, sb, sl, fp, ip, lr}
+add  lr, lr, #0x4a
+movs pc, lr
+
+[NOTE]
+
+Found in:
+
+F1.5B - MZ-N10
+F1.5F - MZ-N710, MZ-NF810
+F1.5G - MZ-NF610
+
+Not in:
+
+F1.5E - AM-NX1   -> possible reason: only 1 patch free, but patch is in two parts
+F1.5C - MZ-NE410 -> they didn't care? the patch is applied to the NF610 which is similar enough in terms of capabilities..
+

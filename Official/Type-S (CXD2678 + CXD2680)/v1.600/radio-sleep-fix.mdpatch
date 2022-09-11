@@ -1,0 +1,60 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = 修正内容３：RADIO ON 中に AC 挿しで Sleep しない対策
+AUTHOR = 鎌田
+
+[DESCRIPTION]
+TEXT   = Countermeasure to prevent Sleep when AC is plugged in while RADIO is ON.
+AUTHOR = Kamada (Sony)
+
+[TARGET]
+SOC     = CXD2680
+CAP     = RADIO
+VERSION = 1600
+
+[PATCH] 
+adrs     = 0x0004b970
+data     = 00de fdf7  ; UDF HOOK TRIGGER
+original = 2878 fdf7
+
+[HOOKCODE-BINARY]
+0070a0e30000d5e5000050e30f00001a48009fe5000090e52002b0e10a00003a34009fe50130a0e3 ; field 1
+0070d0e5037097e10070c0e51170a0e33c0095e50776b0e1070090e13c0085e50470a0e30000d5e5 ; field 2
+005fbde807e08ee00ef0b0e17b050002f0100003                                         ; field 3
+
+[HOOKCODE-ASM]
+START:
+    mov    r7, #0
+    ldrb   r0, [r5]
+    cmp    r0, #0
+    bne    RET
+
+    ldr    r0, PTR_B
+    ldr    r0, [r0]
+    lsrs   r0, r0, #4
+    blo    STOP
+
+    ldr    r0, PTR_A
+    mov    r3, #1
+    ldrb   r7, [r0]
+    orrs   r7, r7, r3
+    strb   r7, [r0]
+    mov    r7, #0x11
+    ldr    r0, [r5, #0x3c]
+    lsls   r7, r7, #0xc
+    orrs   r0, r0, r7
+    str    r0, [r5, #0x3c]
+    mov    r7, #4
+
+STOP:
+    ldrb   r0, [r5]
+
+RET:
+    pop    {r8, sb, sl, fp, ip, lr}
+    add    lr, lr, r7
+    movs   pc, lr
+
+PTR_A:
+    .long 0x0200057b
+PTR_B:
+    .long 0x030010F0
+

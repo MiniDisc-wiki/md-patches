@@ -1,0 +1,28 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = "Radio on"という表示がでたまま、ラジオに遷移せず1分間操作を受け付けなくなる対策
+AUTHOR = 大友
+
+[DESCRIPTION]
+TEXT   =  The "Radio on" message would remain on the screen for one minute without transitioning to the radio. The display would not move to the radio after "Radio on" was displayed, and the operation would not be accepted for one minute.
+AUTHOR = Otomo (Sony)
+
+[TARGET]
+SOC     = CXD2680
+CAP     = RADIO
+VERSION = 1600
+
+[PATCH] 
+adrs     = 0x00021d1c
+data     = 00de 1078
+original = c871 1078
+
+[HOOKCODE-BINARY]
+6040b0e30240c7e50400b0e30300c7e50000d2e50ef0b0e1
+
+[HOOKCODE-ASM]
+movs r4, #0x60
+strb r4, [r7, #2]
+movs r0, #4
+strb r0, [r7, #3]
+ldrb r0, [r2]
+movs pc, lr

@@ -1,0 +1,25 @@
+[ORIGINAL_DESCRIPTION]
+TEXT   = NeverSayに飛んですぐにResetする
+AUTHOR = 森田
+
+[DESCRIPTION]
+TEXT   = Jump to NeverSay and immediately Reset. Avoid writing debug data over NetMD key in EEPROM.
+AUTHOR = Morita (Sony)
+
+
+[TARGET]
+SOC     = CXD2678,CXD2680
+CAP     = EEPROM_32K
+VERSION = 1000,1400,1500,1600
+
+[PATCH] 
+adrs     = 0x000000c4
+data     = dcff ffea   ;  b #0xffffff78
+original = 2409 9fe5
+
+[HOOKCODE-BINARY]
+
+[HOOKCODE-ASM]
+
+[NOTE]
+This patch was added for v1.6 firmwares, but it should also be applied to (Gen1)v1.4, v1.5, and (Gen2) v1.0 devices.
